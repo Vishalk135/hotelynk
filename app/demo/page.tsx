@@ -80,7 +80,7 @@ export default function OverviewPage() {
             Saturday, 13 July
           </p>
           <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-dusk sm:text-3xl">
-            Good afternoon, Rohan
+            Good afternoon, Vishal
           </h1>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full border border-dusk/10 bg-white/70 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wide text-dusk/60">

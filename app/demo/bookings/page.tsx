@@ -107,7 +107,7 @@ export default function BookingsPage() {
       {/* New booking modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-dusk-deep/60 p-0 backdrop-blur-sm sm:items-center sm:p-4">
-          <div className="w-full max-w-md rounded-t-3xl bg-cream p-6 shadow-lift sm:rounded-3xl sm:p-8">
+          <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-cream p-6 shadow-lift sm:rounded-3xl sm:p-8">
             <div className="flex items-center justify-between">
               <h2 className="font-display text-xl font-bold text-dusk">New booking</h2>
               <button

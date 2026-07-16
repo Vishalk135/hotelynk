@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -97,7 +97,7 @@ export default function Sidebar() {
             className="absolute inset-0 bg-dusk-deep/70 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <aside className="absolute inset-y-0 left-0 flex w-72 flex-col bg-dusk shadow-lift">
+          <aside className="absolute inset-y-0 left-0 flex w-72 flex-col overflow-y-auto bg-dusk shadow-lift">
             <div className="flex items-center justify-between px-6 py-6">
               <span className="font-display text-xl font-bold text-cream">Hotelynk</span>
               <button
