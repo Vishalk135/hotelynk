@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 // Where every "Get in touch" submission is delivered.
-const NOTIFY_EMAIL = "vishalkumbhar124@gmail.com";
+const NOTIFY_EMAIL = "vishalkumbhar256@gmail.com";
 
 function isValidEmail(value: unknown): value is string {
   return typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
