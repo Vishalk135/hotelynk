@@ -380,7 +380,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-10 border-t border-cream/[0.06] pt-6">
-            <p className="font-body text-xs text-cream/30">Made in Goa · hotelynk.in</p>
+            <p className="font-body text-xs text-cream/30">Made in Goa · hotelynk</p>
           </div>
         </div>
       </footer>
