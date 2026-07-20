@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { RefreshCw, Check } from "lucide-react";
+import { RefreshCw, Check, Info } from "lucide-react";
 import { channels, rateTable } from "../mock-data";
 
 export default function SyncPage() {
@@ -19,6 +19,17 @@ export default function SyncPage() {
 
   return (
     <div>
+      <div className="mb-6 flex items-start gap-3 rounded-2xl border border-mustard/25 bg-mustard/10 p-4">
+        <Info className="mt-0.5 h-4 w-4 shrink-0 text-mustard-dark" />
+        <p className="font-body text-sm text-dusk/70">
+          <span className="font-semibold text-dusk">Preview mode.</span> Bookings,
+          POS and staff are now live on the real database — this channel
+          manager screen is still a mockup, since real Airbnb/Booking.com/
+          MakeMyTrip sync requires applying and getting approved as a
+          connectivity partner with each platform first.
+        </p>
+      </div>
+
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-azure">SYNC</p>

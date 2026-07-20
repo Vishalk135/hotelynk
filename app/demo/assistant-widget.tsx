@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Sparkles, X, Send } from "lucide-react";
-import { getAssistantReply } from "./assistant-engine";
 
 type Message = { role: "user" | "assistant"; text: string };
 
@@ -18,7 +17,7 @@ export default function AssistantWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      text: "Hi — ask me anything about today's bookings, stock, staff, or channel sync.",
+      text: "Hi Rohan — ask me anything about today's bookings, stock, staff, or channel sync.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -35,10 +34,26 @@ export default function AssistantWidget() {
     setMessages((prev) => [...prev, { role: "user", text: clean }]);
     setInput("");
     setTyping(true);
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { role: "assistant", text: getAssistantReply(clean) }]);
-      setTyping(false);
-    }, 500 + Math.random() * 400);
+
+    fetch("/api/assistant", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question: clean }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", text: data.reply || "Sorry, I couldn't process that." },
+        ]);
+      })
+      .catch(() => {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", text: "Something went wrong reaching the assistant." },
+        ]);
+      })
+      .finally(() => setTyping(false));
   }
 
   return (

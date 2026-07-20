@@ -1,8 +1,10 @@
-  "use client";
+"use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { signOut as firebaseSignOut } from "firebase/auth";
+import { firebaseAuth } from "@/lib/firebase-client";
 import {
   LayoutDashboard,
   CalendarCheck2,
@@ -12,6 +14,7 @@ import {
   Menu,
   X,
   ExternalLink,
+  LogOut,
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -54,8 +57,22 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-export default function Sidebar() {
+export default function Sidebar({
+  user,
+  propertyName,
+}: {
+  user?: { name?: string | null; role?: string };
+  propertyName?: string;
+}) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  async function handleSignOut() {
+    await firebaseSignOut(firebaseAuth).catch(() => {});
+    await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
+    router.push("/login");
+    router.refresh();
+  }
 
   return (
     <>
@@ -64,11 +81,26 @@ export default function Sidebar() {
         <div className="px-6 py-6">
           <span className="font-display text-xl font-bold text-cream">Hotelynk</span>
           <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-cream/40">
-            Candolim Villas
+            {propertyName ?? "Hotelynk"}
           </p>
         </div>
         <NavLinks />
-        <div className="mt-auto p-4">
+        <div className="mt-auto space-y-2 p-4">
+          {user && (
+            <div className="flex items-center justify-between rounded-xl border border-cream/10 px-3 py-2.5">
+              <div className="min-w-0">
+                <p className="truncate font-body text-xs text-cream/80">{user.name}</p>
+                <p className="font-mono text-[10px] uppercase tracking-wide text-cream/40">{user.role}</p>
+              </div>
+              <button
+                onClick={handleSignOut}
+                aria-label="Sign out"
+                className="rounded-lg p-1.5 text-cream/50 transition hover:bg-cream/10 hover:text-cream"
+              >
+                <LogOut className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          )}
           <Link
             href="/"
             className="flex items-center justify-center gap-2 rounded-xl border border-cream/10 px-3 py-2.5 font-body text-xs text-cream/60 transition hover:border-cream/25 hover:text-cream"
@@ -109,7 +141,16 @@ export default function Sidebar() {
               </button>
             </div>
             <NavLinks onNavigate={() => setOpen(false)} />
-            <div className="mt-auto p-4">
+            <div className="mt-auto space-y-2 p-4">
+              {user && (
+                <button
+                  onClick={handleSignOut}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-cream/10 px-3 py-2.5 font-body text-xs text-cream/60 transition hover:border-cream/25 hover:text-cream"
+                >
+                  <LogOut className="h-3.5 w-3.5" />
+                  Sign out ({user.name})
+                </button>
+              )}
               <Link
                 href="/"
                 className="flex items-center justify-center gap-2 rounded-xl border border-cream/10 px-3 py-2.5 font-body text-xs text-cream/60 transition hover:border-cream/25 hover:text-cream"
