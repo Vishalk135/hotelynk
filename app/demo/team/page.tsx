@@ -2,6 +2,7 @@ import { UserCircle2, Crown } from "lucide-react";
 import { adminDb } from "@/lib/firebase-admin";
 import { getCurrentUser } from "@/lib/session";
 import AddTeamMemberButton from "./add-team-member-button";
+import RemoveTeamMemberButton from "./remove-team-member-button";
 
 export default async function TeamPage() {
   const user = await getCurrentUser();
@@ -32,12 +33,15 @@ export default async function TeamPage() {
             <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${m.role === "OWNER" ? "bg-coral/10 text-coral" : "bg-azure/10 text-azure-dark"}`}>
               {m.role === "OWNER" ? <Crown className="h-4.5 w-4.5" /> : <UserCircle2 className="h-4.5 w-4.5" />}
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <p className="truncate font-body text-sm font-medium text-dusk">{m.name}</p>
               <p className="truncate font-mono text-[10px] uppercase tracking-wide text-dusk/40">
                 {m.role} · {m.email}
               </p>
             </div>
+            {user!.role === "OWNER" && m.role === "STAFF" && (
+              <RemoveTeamMemberButton uid={m.id} name={m.name} />
+            )}
           </div>
         ))}
       </div>
