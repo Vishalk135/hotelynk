@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Minus, ShoppingBag, Trash2, Loader2 } from "lucide-react";
+import AddMenuItemButton from "./add-menu-item-button";
 
 type MenuItem = {
   id: string;
@@ -80,9 +81,12 @@ export default function PosClient({ initialMenu }: { initialMenu: MenuItem[] }) 
 
   return (
     <div>
-      <div>
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-mustard-dark">SHACK</p>
-        <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-dusk sm:text-3xl">POS & inventory</h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-mustard-dark">SHACK</p>
+          <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-dusk sm:text-3xl">POS & inventory</h1>
+        </div>
+        <AddMenuItemButton />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.6fr_1fr]">

@@ -1,4 +1,5 @@
 import { UserCog } from "lucide-react";
+import AddStaffButton from "./add-staff-button";
 import { adminDb } from "@/lib/firebase-admin";
 import { getCurrentUser } from "@/lib/session";
 
@@ -35,9 +36,12 @@ export default async function StaffPage() {
 
   return (
     <div>
-      <div>
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-dusk/60">CREW</p>
-        <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-dusk sm:text-3xl">Staff scheduling</h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-dusk/60">CREW</p>
+          <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-dusk sm:text-3xl">Staff scheduling</h1>
+        </div>
+        <AddStaffButton />
       </div>
 
       <div className="mt-8 overflow-hidden rounded-2xl border border-dusk/10 bg-white/70 shadow-soft">
