@@ -1,6 +1,7 @@
 import { adminDb } from "@/lib/firebase-admin";
 import { Building2 } from "lucide-react";
 import CreateClientForm from "./create-client-form";
+import AdminAddStaffForm from "./add-staff-form";
 
 export default async function AdminPage() {
   const snap = await adminDb.collection("properties").orderBy("createdAt", "desc").get();
@@ -18,6 +19,14 @@ export default async function AdminPage() {
       <div className="mt-8 rounded-3xl border border-cream/10 bg-dusk-light p-6 sm:p-8">
         <h2 className="font-display text-lg font-bold text-cream">Add a new client</h2>
         <CreateClientForm />
+      </div>
+
+      <div className="mt-6 rounded-3xl border border-cream/10 bg-dusk-light p-6 sm:p-8">
+        <h2 className="font-display text-lg font-bold text-cream">Add staff to an existing client</h2>
+        <p className="mt-1 font-body text-sm text-cream/50">
+          Owners can also do this themselves from their dashboard's Team page.
+        </p>
+        <AdminAddStaffForm properties={properties.map((p) => ({ id: p.id, name: p.name }))} />
       </div>
 
       <div className="mt-8">

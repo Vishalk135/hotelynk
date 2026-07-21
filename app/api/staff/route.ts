@@ -10,24 +10,25 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => null);
-  const { name, price } = body ?? {};
+  const { name, role } = body ?? {};
 
   if (!name || typeof name !== "string" || !name.trim()) {
-    return NextResponse.json({ error: "Room name is required." }, { status: 400 });
+    return NextResponse.json({ error: "Name is required." }, { status: 400 });
   }
-  const priceNum = Number(price);
-  if (!Number.isFinite(priceNum) || priceNum <= 0) {
-    return NextResponse.json({ error: "Enter a valid price." }, { status: 400 });
+  if (!role || typeof role !== "string" || !role.trim()) {
+    return NextResponse.json({ error: "Role is required." }, { status: 400 });
   }
 
-  const ref = adminDb.collection("rooms").doc();
+  const ref = adminDb.collection("staff").doc();
   await ref.set({
     propertyId: user.propertyId,
     name: name.trim(),
-    price: Math.round(priceNum),
-    status: "VACANT",
+    role: role.trim(),
+    status: "OFF",
+    shift: null,
+    shifts: [false, false, false, false, false, false, false],
     createdAt: Timestamp.now(),
   });
 
-  return NextResponse.json({ ok: true, roomId: ref.id });
+  return NextResponse.json({ ok: true, staffId: ref.id });
 }

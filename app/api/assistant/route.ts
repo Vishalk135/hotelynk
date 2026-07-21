@@ -37,6 +37,9 @@ export async function POST(req: NextRequest) {
   }
 
   if (q.includes("revenue") || q.includes("sales") || q.includes("earn")) {
+    if (user.role !== "OWNER" && user.role !== "SUPER_ADMIN") {
+      return NextResponse.json({ reply: "Revenue details are only visible to the property owner." });
+    }
     const weekAgo = new Date();
     weekAgo.setHours(0, 0, 0, 0);
     weekAgo.setDate(weekAgo.getDate() - 6);

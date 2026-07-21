@@ -81,9 +81,13 @@ export default async function OverviewPage() {
     ...lowStock.slice(0, 2).map((m) => ({ text: `${m.name} stock is low (${m.stock} left)`, time: "now", kind: "stock" as const })),
   ].slice(0, 5);
 
+  const isOwner = user!.role === "OWNER" || user!.role === "SUPER_ADMIN";
+
   const STATS = [
     { label: "Occupancy today", value: `${occupied}/${rooms.length}`, sub: "rooms occupied", icon: BedDouble, tint: "text-coral", bg: "bg-coral/10" },
-    { label: "Revenue this week", value: `₹${weekTotal.toLocaleString("en-IN")}`, sub: `${weekOrders.length} orders`, icon: IndianRupee, tint: "text-mustard-dark", bg: "bg-mustard/15" },
+    isOwner
+      ? { label: "Revenue this week", value: `₹${weekTotal.toLocaleString("en-IN")}`, sub: `${weekOrders.length} orders`, icon: IndianRupee, tint: "text-mustard-dark", bg: "bg-mustard/15" }
+      : { label: "Orders this week", value: `${weekOrders.length}`, sub: "across all channels", icon: IndianRupee, tint: "text-mustard-dark", bg: "bg-mustard/15" },
     { label: "Menu items", value: `${menu.length}`, sub: lowStock.length ? `${lowStock.length} running low` : "stock healthy", icon: RefreshCw, tint: "text-azure-dark", bg: "bg-azure/10" },
     { label: "Staff on duty", value: `${onDuty}/${staff.length}`, sub: "today's roster", icon: Users, tint: "text-coral", bg: "bg-coral/10" },
   ];
@@ -120,7 +124,14 @@ export default async function OverviewPage() {
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-        <OverviewChart data={revenueTrend} />
+        {isOwner ? (
+          <OverviewChart data={revenueTrend} />
+        ) : (
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dusk/10 bg-white/70 p-6 text-center shadow-soft">
+            <p className="font-display text-base font-bold text-dusk">Revenue details</p>
+            <p className="mt-1 font-body text-sm text-dusk/50">Visible to the property owner only.</p>
+          </div>
+        )}
         <div className="rounded-2xl border border-dusk/10 bg-white/70 p-6 shadow-soft">
           <h2 className="font-display text-lg font-bold text-dusk">Recent activity</h2>
           {activity.length === 0 ? (

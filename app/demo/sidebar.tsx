@@ -11,6 +11,7 @@ import {
   RefreshCw,
   Receipt,
   Users,
+  UserCircle2,
   Menu,
   X,
   ExternalLink,
@@ -23,6 +24,7 @@ const NAV_ITEMS = [
   { href: "/demo/sync", label: "Channel sync", tag: "SYNC", icon: RefreshCw, tint: "text-azure" },
   { href: "/demo/pos", label: "Shack POS", tag: "SHACK", icon: Receipt, tint: "text-mustard" },
   { href: "/demo/staff", label: "Staff", tag: "CREW", icon: Users, tint: "text-cream" },
+  { href: "/demo/team", label: "Team", icon: UserCircle2 },
 ];
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
