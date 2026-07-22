@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
-import { Sparkles } from "lucide-react";
+import Logo from "@/app/logo";
 import AdminSignOut from "./admin-sign-out";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -13,9 +13,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="border-b border-cream/10 bg-dusk/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-coral to-azure">
-              <Sparkles className="h-3.5 w-3.5 text-dusk" />
-            </div>
+            <Logo className="h-7 w-7" />
             <span className="font-display text-lg font-bold text-cream">Hotelynk</span>
             <span className="ml-1 rounded-full border border-cream/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-cream/50">
               Admin

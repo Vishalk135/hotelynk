@@ -4,7 +4,8 @@ import { useState, FormEvent } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "@/lib/firebase-client";
 import { useRouter } from "next/navigation";
-import { Sparkles, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import Logo from "@/app/logo";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -46,9 +47,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-dusk px-4">
       <div className="w-full max-w-sm">
         <div className="flex items-center justify-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-coral to-azure">
-            <Sparkles className="h-4 w-4 text-dusk" />
-          </div>
+          <Logo className="h-8 w-8" />
           <span className="font-display text-xl font-bold text-cream">Hotelynk</span>
         </div>
 
